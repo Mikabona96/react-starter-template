@@ -1,5 +1,6 @@
 import { Posts } from '@/redux/api/types';
 import { createFileRoute, useLoaderData, useMatch, useParams } from '@tanstack/react-router';
+import { useState } from 'react';
 import styled from 'styled-components';
 
 interface ISearchParams {
@@ -19,9 +20,21 @@ export const Route = createFileRoute('/_another-layout/news/$id')({
   },
 });
 
-const Block = styled.div`
-  color: ${({ theme }) => theme.palette.error};
+const Block = styled.div<{ $isPurple?: boolean }>`
+  color: ${({ theme, $isPurple }) => ($isPurple ? theme.palette.purple.main : theme.palette.error)};
+  font-family: ${({ theme }) => theme.font.THICCCBOI.bold};
   font-size: 25px;
+`;
+
+const Button = styled.button`
+  padding: 10px 20px;
+  margin: 20px 0px 0px 20px;
+  color: #fff;
+  background: ${({ theme }) => theme.palette.purple.main};
+  cursor: pointer;
+  outline: 0;
+  border: 0;
+  border-radius: 5px;
 `;
 
 function Article() {
@@ -31,6 +44,7 @@ function Article() {
   const posts = useLoaderData({ from: '/_another-layout/news/$id' }).data as Posts;
   const { staticData } = useMatch({ from: '/_another-layout/news/$id' });
   const { myData } = staticData as { myData: string };
+  const [isPurple, setIsPurple] = useState(false);
   return (
     <div>
       <div> Hello from news.article {JSON.stringify(params)}</div>
@@ -61,9 +75,10 @@ function Article() {
       <br />
       <br />
       <br />
-      <Block>
+      <Block $isPurple={isPurple}>
         <b>{myData}</b>
       </Block>
+      <Button onClick={() => setIsPurple(!isPurple)}>Change color to {isPurple ? 'red' : 'purple'}</Button>
     </div>
   );
 }

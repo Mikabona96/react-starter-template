@@ -42,6 +42,13 @@ export interface ITheme {
     sm: string;
     xs: string;
   };
+  font: {
+    THICCCBOI: {
+      regular: string;
+      medium: string;
+      bold: string;
+    };
+  };
 }
 
 export const breakpoints = {
@@ -96,4 +103,11 @@ export const theme: ITheme = {
     sm: `@media (${val}-width: ${breakpoints.sm}px)`,
     xs: `@media (${val}-width: ${breakpoints.xs}px)`,
   }),
+  font: {
+    THICCCBOI: {
+      regular: 'THICCCBOI REGULAR',
+      medium: 'THICCCBOI MEDIUM',
+      bold: 'THICCCBOI BOLD',
+    },
+  },
 };
